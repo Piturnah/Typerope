@@ -30,15 +30,19 @@ public class GameController : MonoBehaviour
         return healthBarChange;
     }
 
+    // Adds a new key to the keysToPress list, avoiding duplicate letters
     IEnumerator PressNewKey() {
         while(true) {
-            char newKey = 'a';
+            char newKey = 'a';  // Arbitrary inital value
             bool keyNotUnique = true;
+
             while (keyNotUnique) {
                 newKey = KeyMap.charToKeycode.ElementAt(UnityEngine.Random.Range(0, KeyMap.charToKeycode.Count)).Key;
                 keyNotUnique = keysToPress.Contains(newKey);
             }
             if (keysToPress.Count >= 5) { keysToPress.RemoveAt(0); }
+
+            // Add newKey to list and send action invocation to relevant classes
             keysToPress.Add(newKey);
             keyUpdate?.Invoke();
 
