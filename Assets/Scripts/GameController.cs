@@ -11,23 +11,18 @@ public class GameController : MonoBehaviour
 
     public event Action keyUpdate;
 
-    private void Update() {
-        CheckKeysDown();
-    }
-
-    void CheckKeysDown() {
-        foreach(char key in keysToPress) {
-            if (!Input.GetKey(KeyMap.charToKeycode[key])) {
-                Debug.Log("Not pressing key " + key.ToString().ToUpper() + "!");
-            }
-        }
-    }
-
     IEnumerator PressNewKey() {
         while(true) {
+            char newKey = 'a';
+            bool keyNotUnique = true;
+            while (keyNotUnique) {
+                newKey = KeyMap.charToKeycode.ElementAt(UnityEngine.Random.Range(0, KeyMap.charToKeycode.Count)).Key;
+                keyNotUnique = keysToPress.Contains(newKey);
+            }
             if (keysToPress.Count >= 5) { keysToPress.RemoveAt(0); }
-            keysToPress.Add(KeyMap.charToKeycode.ElementAt(UnityEngine.Random.Range(0, KeyMap.charToKeycode.Count)).Key);
+            keysToPress.Add(newKey);
             keyUpdate?.Invoke();
+
             yield return new WaitForSeconds(timeBtwNewKeys);
         }
     }

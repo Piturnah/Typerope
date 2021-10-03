@@ -7,17 +7,26 @@ using TMPro;
 public class KeyButton : MonoBehaviour
 {
     char key;
+    public GameController gc;
+
+    Animator anim;
     public TextMeshProUGUI text;
 
     public Color defaultColour;
     public Color depressedColour;
 
+    private void Awake() {
+        anim = GetComponent<Animator>();
+    }
+
     public void UpdateKeyValue(char newVal) {
+        Debug.Log("New val " + newVal);
         key = newVal;
         text.text = ("" + key).ToUpper();
     }
 
     private void Update() {
-        GetComponent<Image>().color = (Input.GetKey(KeyMap.charToKeycode[key])) ? depressedColour : defaultColour;
+        //GetComponent<Image>().color = (Input.GetKey(KeyMap.charToKeycode[key])) ? depressedColour : defaultColour;
+        anim.SetBool("Wobbling", !Input.GetKey(KeyMap.charToKeycode[key]));
     }
 }

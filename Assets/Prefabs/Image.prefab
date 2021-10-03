@@ -146,6 +146,7 @@ GameObject:
   - component: {fileID: 6208497929335313190}
   - component: {fileID: 6967731867825309419}
   - component: {fileID: 4586887179239209032}
+  - component: {fileID: 763701562}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -223,6 +224,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e58019e371ceaf7488de234c54493c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gc: {fileID: 0}
   text: {fileID: 2480674532967303033}
   defaultColour: {r: 0.8862746, g: 0.27058825, b: 0.27058825, a: 0}
   depressedColour: {r: 0.254717, g: 0.254717, b: 0.254717, a: 0}
+--- !u!95 &763701562
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7063264546004922426}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0dda9fac01aff3746afe0cc26a91ac4e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
