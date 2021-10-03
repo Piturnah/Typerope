@@ -7,9 +7,28 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     float timeBtwNewKeys = 5f;
+    public float maxTimeB4KO = 10f;
+    public float timeB4KO;
+
+    const float missingKeyPenalty = -1f;
+    const float excessKeyPenalty = -1f;
+
     public List<char> keysToPress = new List<char>();
 
     public event Action keyUpdate;
+
+    private void Update() {
+        timeB4KO += CalculateHealth() * Time.deltaTime;
+    }
+
+    float CalculateHealth() {
+        float healthBarChange = 0;
+        foreach (char key in KeyMap.charToKeycode.Keys) {
+            healthBarChange += (keysToPress.Contains(key)) ? (!Input.GetKey(KeyMap.charToKeycode[key]) ? missingKeyPenalty : 0) : ((Input.GetKey(KeyMap.charToKeycode[key])) ? excessKeyPenalty : 0);
+        }
+
+        return healthBarChange;
+    }
 
     IEnumerator PressNewKey() {
         while(true) {
@@ -28,6 +47,7 @@ public class GameController : MonoBehaviour
     }
 
     private void Start() {
+        timeB4KO = maxTimeB4KO;
         StartCoroutine(PressNewKey());
     }
 }
