@@ -10,6 +10,12 @@ public class ExcessKeyHolder : MonoBehaviour
 
     List<char> excessKeys = new List<char>();
 
+    private void Start() {
+        foreach (Transform child in transform) {
+            Destroy(child.gameObject);
+        }
+    }
+
     private void Update() {
         foreach(char key in excessKeys.ToList()) {
             if (!Input.GetKeyDown(KeyMap.charToKeycode[key])) {
@@ -18,7 +24,7 @@ public class ExcessKeyHolder : MonoBehaviour
             }
         }
         foreach (char key in KeyMap.charToKeycode.Keys) {
-            if (Input.GetKey(KeyMap.charToKeycode[key]) && !excessKeys.Contains(key)) {
+            if (Input.GetKey(KeyMap.charToKeycode[key]) && !excessKeys.Contains(key) && !gc.keysToPress.Contains(key)) {
                 excessKeys.Add(key);
                 UpdateKeys();
             }
@@ -34,9 +40,8 @@ public class ExcessKeyHolder : MonoBehaviour
             GameObject newImageObject = Instantiate(keyImage, Vector3.zero, Quaternion.identity, transform);
             newImageObject.GetComponent<RectTransform>().anchoredPosition = Vector3.right * (20 + 120 * i);
 
-            KeyButton newImageKeyButtonComp = newImageObject.GetComponent<KeyButton>();
-            newImageKeyButtonComp.UpdateKeyValue(gc.keysToPress[i]);
-            newImageKeyButtonComp.gc = gc;
+            ExcessKeyButton newImageKeyButtonComp = newImageObject.GetComponent<ExcessKeyButton>();
+            newImageKeyButtonComp.UpdateKeyValue(excessKeys[i]);
         }
     }
 }

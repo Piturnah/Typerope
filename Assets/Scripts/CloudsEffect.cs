@@ -15,7 +15,6 @@ public class CloudsEffect : MonoBehaviour
         {
             //Create New Cloud
             int cloudType = Random.Range(1, 5);
-            Debug.Log(cloudType);
             GameObject newCloud = (GameObject)Instantiate(Resources.Load($"Clouds/cloud{cloudType}"));    //Cast isn't actually redundant
             newCloud.transform.parent = transform;
             newCloud.transform.position = transform.position + (Vector3.right * Random.Range(-50,50));
