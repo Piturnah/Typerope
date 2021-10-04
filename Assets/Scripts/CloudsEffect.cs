@@ -19,6 +19,7 @@ public class CloudsEffect : MonoBehaviour
             GameObject newCloud = (GameObject)Instantiate(Resources.Load($"Clouds/cloud{cloudType}"));    //Cast isn't actually redundant
             newCloud.transform.parent = transform;
             newCloud.transform.position = transform.position + (Vector3.right * Random.Range(-50,50));
+            newCloud.GetComponent<MeshRenderer>().receiveShadows = false;
             timeLeft = timeBetweenClouds;
         }
         else
