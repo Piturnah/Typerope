@@ -93,7 +93,7 @@ public class GameController : MonoBehaviour
         scoreUIObject.text = $"Score: {score}";
     }
 
-    private Boolean CheckWord(List<char> testList, char newKey)
+    private bool CheckWord(List<char> testList, char newKey)
     {
         string combindedString = (string.Join("", testList.ToArray()) + Char.ToString(newKey));
 

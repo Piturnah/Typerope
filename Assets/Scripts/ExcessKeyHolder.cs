@@ -38,7 +38,7 @@ public class ExcessKeyHolder : MonoBehaviour
 
         for (int i = 0; i < excessKeys.Count; i++) {
             GameObject newImageObject = Instantiate(keyImage, Vector3.zero, Quaternion.identity, transform);
-            newImageObject.GetComponent<RectTransform>().anchoredPosition = Vector3.right * (20 + 120 * i);
+            newImageObject.GetComponent<RectTransform>().anchoredPosition = Vector3.right * (14 - 400 + 35 + 84 * i);
 
             ExcessKeyButton newImageKeyButtonComp = newImageObject.GetComponent<ExcessKeyButton>();
             newImageKeyButtonComp.UpdateKeyValue(excessKeys[i]);
