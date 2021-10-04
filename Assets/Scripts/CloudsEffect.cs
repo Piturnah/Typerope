@@ -6,7 +6,7 @@ public class CloudsEffect : MonoBehaviour
 {
     public float cloudSpeed, cloudSpeedVariance, cloudEffectLength;
     public float timeBetweenClouds, MaxClouds;
-    private float timeLeft;
+    private float timeLeft, actualSpeed;
     public Vector3 cloudDirection;
 
     private void Update()
@@ -29,7 +29,15 @@ public class CloudsEffect : MonoBehaviour
         for(int i = 0; i<transform.childCount; i++)
         {
             GameObject currentChild = transform.GetChild(i).gameObject;
-            currentChild.transform.position += cloudDirection * (cloudSpeed + Random.Range(-cloudSpeedVariance,cloudSpeedVariance)) * Time.deltaTime;
+            if (JesterAnimController.moving)
+            {
+                actualSpeed = cloudSpeed;
+            }
+            else
+            {
+                actualSpeed = cloudSpeed / 2;
+            }
+            currentChild.transform.position += cloudDirection * (actualSpeed + Random.Range(-cloudSpeedVariance,cloudSpeedVariance)) * Time.deltaTime;
             if (Vector3.Distance(transform.position, currentChild.transform.position) > cloudEffectLength)
             {
                 Destroy(currentChild);

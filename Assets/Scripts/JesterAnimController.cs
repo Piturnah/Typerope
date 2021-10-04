@@ -8,6 +8,7 @@ public class JesterAnimController : MonoBehaviour
     GameController gc;
 
     bool previousStepL;
+    static public bool moving;
 
     private void Update() {
         if (Input.GetKeyDown(KeyMap.charToKeycode[gc.keysToPress[gc.keysToPress.Count - 1]])) {
@@ -20,10 +21,12 @@ public class JesterAnimController : MonoBehaviour
         }
 
         anim.SetBool("Leaning", false);
+        moving = true;
         foreach (char key in KeyMap.charToKeycode.Values) {
             if (gc.keysToPress.Contains(key)) {
                 if (!Input.GetKey(KeyMap.charToKeycode[key])) {
                     anim.SetBool("Leaning", true);
+                    moving = false;
                 }
             }
         }
