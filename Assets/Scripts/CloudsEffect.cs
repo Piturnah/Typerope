@@ -37,6 +37,7 @@ public class CloudsEffect : MonoBehaviour
             {
                 actualSpeed = cloudSpeed / 2;
             }
+            //currentChild.transform.Translate(-Vector3.forward * Time.deltaTime * (actualSpeed + Random.Range(-cloudSpeedVariance, cloudSpeedVariance)));
             currentChild.transform.position += cloudDirection * (actualSpeed + Random.Range(-cloudSpeedVariance,cloudSpeedVariance)) * Time.deltaTime;
             if (Vector3.Distance(transform.position, currentChild.transform.position) > cloudEffectLength)
             {
