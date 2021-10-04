@@ -10,6 +10,8 @@ public class JesterAnimController : MonoBehaviour
     bool previousStepL;
     static public bool moving;
 
+    public Rigidbody[] bones = new Rigidbody[10];
+
     private void Update() {
         if (Input.GetKeyDown(KeyMap.charToKeycode[gc.keysToPress[gc.keysToPress.Count - 1]])) {
             if (previousStepL) {
@@ -32,8 +34,16 @@ public class JesterAnimController : MonoBehaviour
         }
     }
 
+    void EnableRagdoll() {
+        anim.enabled = false;
+        foreach (Rigidbody bone in bones) {
+            bone.isKinematic = false;
+        }
+    }
+
     private void Start() {
         anim = GetComponent<Animator>();
         gc = FindObjectOfType<GameController>();
+        gc.gameOver += EnableRagdoll;
     }
 }

@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     public List<char> keysToPress = new List<char>();
 
     public event Action keyUpdate;
+    public event Action gameOver;
 
     public float score;
     public TextMeshProUGUI scoreUIObject;
@@ -87,7 +88,7 @@ public class GameController : MonoBehaviour
 
     private void GameFailed()
     {
-        
+        gameOver?.Invoke();
     }
 
     public void ResetScore()
