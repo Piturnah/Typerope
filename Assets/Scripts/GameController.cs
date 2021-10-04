@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using UnityEngine;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -23,7 +24,10 @@ public class GameController : MonoBehaviour
     public event Action keyUpdate;
 
     public float score;
+    public TextMeshProUGUI scoreUIObject;
 
+    public string[] noNoWords = { "cunt", "fuck", "shit", "dick", "cock", "damn", "crap", "sod", "arse", "bint", "minge", "balls", "piss", "bitch", "prick", "twat", "niger", "knob", "wank", "pusy" };
+    
     private void Update() {
         timeB4KO += CalculateHealth() * Time.deltaTime;
         timeB4KO = Mathf.Clamp(timeB4KO, 0, maxTimeB4KO);
@@ -51,11 +55,15 @@ public class GameController : MonoBehaviour
         while(true) {
             char newKey = 'a';  // Arbitrary inital value
             bool keyNotUnique = true;
+            bool keyNotSafe = true;
 
-            while (keyNotUnique) {
+            while (keyNotUnique || keyNotSafe) {
                 newKey = KeyMap.charToKeycode.ElementAt(UnityEngine.Random.Range(0, KeyMap.charToKeycode.Count)).Key;
                 keyNotUnique = keysToPress.Contains(newKey);
+                keyNotSafe = CheckWord(keysToPress, newKey);
             }
+
+
             if (keysToPress.Count >= 5) { keysToPress.RemoveAt(0); }
 
             // Add newKey to list and send action invocation to relevant classes
@@ -76,10 +84,26 @@ public class GameController : MonoBehaviour
     public void ResetScore()
     {
         score = 0;
+        scoreUIObject.text = $"Score: {score}";
     }
 
     public void UpdateScore()
     {
         score += 1;
+        scoreUIObject.text = $"Score: {score}";
+    }
+
+    private Boolean CheckWord(List<char> testList, char newKey)
+    {
+        string combindedString = (string.Join("", testList.ToArray()) + Char.ToString(newKey));
+
+        if (Array.IndexOf(noNoWords, combindedString) == -1){
+            print("false");
+            return false;
+        }
+        else {
+            print("true");
+            return true;
+        }
     }
 }
