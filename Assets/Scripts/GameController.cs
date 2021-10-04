@@ -24,7 +24,8 @@ public class GameController : MonoBehaviour
     public event Action keyUpdate;
     public event Action gameOver;
 
-    public float score;
+    public int score;
+    bool scoreEnabled = true;
     public TextMeshProUGUI scoreUIObject;
 
     public string[] noNoWords = { "cunt", "fuck", "shit", "dick", "cock", "damn", "crap", "sod", "arse", "bint", "minge", "balls", "piss", "bitch", "prick", "twat", "niger", "knob", "wank", "pusy" };
@@ -89,6 +90,8 @@ public class GameController : MonoBehaviour
     private void GameFailed()
     {
         gameOver?.Invoke();
+        GameEnd.EndGame(score);
+        scoreEnabled = false;
     }
 
     public void ResetScore()
@@ -99,8 +102,11 @@ public class GameController : MonoBehaviour
 
     public void UpdateScore()
     {
-        score += 1;
-        scoreUIObject.text = $"Score: {score}";
+        if (scoreEnabled)
+        {
+            score += 1;
+            scoreUIObject.text = $"Score: {score}";
+        }     
     }
 
     private bool CheckWord(List<char> testList, char newKey)
