@@ -11,13 +11,21 @@ public class JesterAnimController : MonoBehaviour
 
     private void Update() {
         if (Input.GetKeyDown(KeyMap.charToKeycode[gc.keysToPress[gc.keysToPress.Count - 1]])) {
-            Debug.Log("AIDS");
             if (previousStepL) {
                 anim.SetTrigger("StepR");
             } else {
                 anim.SetTrigger("StepL");
             }
             previousStepL = !previousStepL;
+        }
+
+        anim.SetBool("Leaning", false);
+        foreach (char key in KeyMap.charToKeycode.Values) {
+            if (gc.keysToPress.Contains(key)) {
+                if (!Input.GetKeyDown(KeyMap.charToKeycode[key])) {
+                    anim.SetBool("Leaning", true);
+                }
+            }
         }
     }
 

@@ -18,7 +18,6 @@ public class HealthBar : MonoBehaviour
 
         image.fillAmount = healthRatio;
 
-        Debug.Log(healthRatio);
         image.enabled = !(healthRatio >= .99f);
 
         if (healthRatio <= .5f) {
