@@ -22,6 +22,8 @@ public class GameController : MonoBehaviour
 
     public event Action keyUpdate;
 
+    public float score;
+
     private void Update() {
         timeB4KO += CalculateHealth() * Time.deltaTime;
         timeB4KO = Mathf.Clamp(timeB4KO, 0, maxTimeB4KO);
@@ -67,5 +69,17 @@ public class GameController : MonoBehaviour
     private void Start() {
         timeB4KO = maxTimeB4KO;
         StartCoroutine(PressNewKey());
+        ResetScore();
+        keyUpdate += UpdateScore;
+    }
+
+    public void ResetScore()
+    {
+        score = 0;
+    }
+
+    public void UpdateScore()
+    {
+        score += 1;
     }
 }
