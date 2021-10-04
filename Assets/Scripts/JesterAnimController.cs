@@ -22,7 +22,7 @@ public class JesterAnimController : MonoBehaviour
         anim.SetBool("Leaning", false);
         foreach (char key in KeyMap.charToKeycode.Values) {
             if (gc.keysToPress.Contains(key)) {
-                if (!Input.GetKeyDown(KeyMap.charToKeycode[key])) {
+                if (!Input.GetKey(KeyMap.charToKeycode[key])) {
                     anim.SetBool("Leaning", true);
                 }
             }
