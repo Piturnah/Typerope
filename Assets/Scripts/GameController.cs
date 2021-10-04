@@ -23,13 +23,11 @@ public class GameController : MonoBehaviour
 
     public event Action keyUpdate;
 
-<<<<<<< Updated upstream
     public float score;
     public TextMeshProUGUI scoreUIObject;
 =======
     public string[] noNoWords = { "cunt", "fuck", "shit", "dick", "cock", "damn", "crap", "sod", "arse", "bint", "minge", "balls", "piss", "bitch", "prick", "twat", "niger", "knob", "wank", "pusy" };
->>>>>>> Stashed changes
-
+    
     private void Update() {
         timeB4KO += CalculateHealth() * Time.deltaTime;
         timeB4KO = Mathf.Clamp(timeB4KO, 0, maxTimeB4KO);
@@ -56,12 +54,13 @@ public class GameController : MonoBehaviour
     IEnumerator PressNewKey() {
         while(true) {
             char newKey = 'a';  // Arbitrary inital value
-            bool keyNotMatch = true;
+            bool keyNotUnique = true;
+            bool keyNotSafe = true;
 
-            while (keyNotMatch) {
+            while (keyNotMatch || keyNotSafe) {
                 newKey = KeyMap.charToKeycode.ElementAt(UnityEngine.Random.Range(0, KeyMap.charToKeycode.Count)).Key;
                 keyNotMatch = keysToPress.Contains(newKey);
-                keyNotMatch = CheckWord(keysToPress, newKey);
+                keyNotSafe = CheckWord(keysToPress, newKey);
             }
 
 
