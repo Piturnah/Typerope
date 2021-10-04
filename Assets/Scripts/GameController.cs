@@ -12,6 +12,11 @@ public class GameController : MonoBehaviour
 
     const float missingKeyPenalty = -1f;
     const float excessKeyPenalty = -1f;
+    const float regenRate = 2f;
+    const float timeUntilRegen = .5f;
+    float lastDmgTime;
+
+    char lastKeyPushedDown;
 
     public List<char> keysToPress = new List<char>();
 
@@ -19,12 +24,21 @@ public class GameController : MonoBehaviour
 
     private void Update() {
         timeB4KO += CalculateHealth() * Time.deltaTime;
+        timeB4KO = Mathf.Clamp(timeB4KO, 0, maxTimeB4KO);
     }
 
     float CalculateHealth() {
         float healthBarChange = 0;
+        
+        // Take damage for each missed key and each excess key
         foreach (char key in KeyMap.charToKeycode.Keys) {
             healthBarChange += (keysToPress.Contains(key)) ? (!Input.GetKey(KeyMap.charToKeycode[key]) ? missingKeyPenalty : 0) : ((Input.GetKey(KeyMap.charToKeycode[key])) ? excessKeyPenalty : 0);
+        }
+
+        // Determine if recharging health
+        if (healthBarChange != 0) { lastDmgTime = Time.time; }
+        if (lastDmgTime + timeUntilRegen <= Time.time) {
+            healthBarChange += regenRate;
         }
 
         return healthBarChange;

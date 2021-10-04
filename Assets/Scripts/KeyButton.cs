@@ -20,13 +20,11 @@ public class KeyButton : MonoBehaviour
     }
 
     public void UpdateKeyValue(char newVal) {
-        Debug.Log("New val " + newVal);
         key = newVal;
         text.text = ("" + key).ToUpper();
     }
 
     private void Update() {
-        //GetComponent<Image>().color = (Input.GetKey(KeyMap.charToKeycode[key])) ? depressedColour : defaultColour;
         anim.SetBool("Wobbling", !Input.GetKey(KeyMap.charToKeycode[key]));
     }
 }

@@ -15,10 +15,14 @@ public class HealthBar : MonoBehaviour
 
     private void Update() {
         float healthRatio = gc.timeB4KO / gc.maxTimeB4KO;
+
         image.fillAmount = healthRatio;
+
+        Debug.Log(healthRatio);
+        image.enabled = !(healthRatio >= .99f);
+
         if (healthRatio <= .5f) {
             image.color = Color.Lerp(Color.red, Color.white, healthRatio * 2);
         }
-
     }
 }

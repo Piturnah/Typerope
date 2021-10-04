@@ -19,12 +19,13 @@ public class KeyUIManager : MonoBehaviour
             GameObject newImageObject = Instantiate(keyImage, Vector3.zero, Quaternion.identity, transform);
             newImageObject.GetComponent<RectTransform>().anchoredPosition = Vector3.right * newPosX;
             KeyButton newImageKeyButtonComp = newImageObject.GetComponent<KeyButton>();
+
             newImageKeyButtonComp.UpdateKeyValue(gc.keysToPress[i]);
             newImageKeyButtonComp.gc = gc;
         }
     }
 
-    private void Start() {
+    private void Awake() {
         gc.keyUpdate += KeyUpdate;
     }
 }
