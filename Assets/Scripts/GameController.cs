@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using UnityEngine;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class GameController : MonoBehaviour
     public event Action keyUpdate;
 
     public float score;
+    public TextMeshProUGUI scoreUIObject;
 
     private void Update() {
         timeB4KO += CalculateHealth() * Time.deltaTime;
@@ -76,10 +78,12 @@ public class GameController : MonoBehaviour
     public void ResetScore()
     {
         score = 0;
+        scoreUIObject.text = $"Score: {score}";
     }
 
     public void UpdateScore()
     {
         score += 1;
+        scoreUIObject.text = $"Score: {score}";
     }
 }
