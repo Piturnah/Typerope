@@ -11,6 +11,7 @@ public class JesterAnimController : MonoBehaviour
 
     private void Update() {
         if (Input.GetKeyDown(KeyMap.charToKeycode[gc.keysToPress[gc.keysToPress.Count - 1]])) {
+            Debug.Log("AIDS");
             if (previousStepL) {
                 anim.SetTrigger("StepR");
             } else {
