@@ -25,7 +25,7 @@ public class GameController : MonoBehaviour
 
     public float score;
     public TextMeshProUGUI scoreUIObject;
-=======
+
     public string[] noNoWords = { "cunt", "fuck", "shit", "dick", "cock", "damn", "crap", "sod", "arse", "bint", "minge", "balls", "piss", "bitch", "prick", "twat", "niger", "knob", "wank", "pusy" };
     
     private void Update() {
@@ -57,9 +57,9 @@ public class GameController : MonoBehaviour
             bool keyNotUnique = true;
             bool keyNotSafe = true;
 
-            while (keyNotMatch || keyNotSafe) {
+            while (keyNotUnique || keyNotSafe) {
                 newKey = KeyMap.charToKeycode.ElementAt(UnityEngine.Random.Range(0, KeyMap.charToKeycode.Count)).Key;
-                keyNotMatch = keysToPress.Contains(newKey);
+                keyNotUnique = keysToPress.Contains(newKey);
                 keyNotSafe = CheckWord(keysToPress, newKey);
             }
 
@@ -69,9 +69,6 @@ public class GameController : MonoBehaviour
             // Add newKey to list and send action invocation to relevant classes
             keysToPress.Add(newKey);
             keyUpdate?.Invoke();
-
-
-            CheckWord(keysToPress);
 
             yield return new WaitForSeconds(timeBtwNewKeys);
         }
@@ -96,7 +93,7 @@ public class GameController : MonoBehaviour
         scoreUIObject.text = $"Score: {score}";
     }
 
-    private Boolean CheckWord(List<char> testList, string newKey)
+    private Boolean CheckWord(List<char> testList, char newKey)
     {
         string combindedString = (string.Join("", testList.ToArray()) + Char.ToString(newKey));
 
