@@ -23,8 +23,12 @@ public class GameController : MonoBehaviour
 
     public event Action keyUpdate;
 
+<<<<<<< Updated upstream
     public float score;
     public TextMeshProUGUI scoreUIObject;
+=======
+    public string[] noNoWords = { "cunt", "fuck", "shit", "dick", "cock", "damn", "crap", "sod", "arse", "bint", "minge", "balls", "piss", "bitch", "prick", "twat", "niger", "knob", "wank", "pusy" };
+>>>>>>> Stashed changes
 
     private void Update() {
         timeB4KO += CalculateHealth() * Time.deltaTime;
@@ -52,17 +56,23 @@ public class GameController : MonoBehaviour
     IEnumerator PressNewKey() {
         while(true) {
             char newKey = 'a';  // Arbitrary inital value
-            bool keyNotUnique = true;
+            bool keyNotMatch = true;
 
-            while (keyNotUnique) {
+            while (keyNotMatch) {
                 newKey = KeyMap.charToKeycode.ElementAt(UnityEngine.Random.Range(0, KeyMap.charToKeycode.Count)).Key;
-                keyNotUnique = keysToPress.Contains(newKey);
+                keyNotMatch = keysToPress.Contains(newKey);
+                keyNotMatch = CheckWord(keysToPress, newKey);
             }
+
+
             if (keysToPress.Count >= 5) { keysToPress.RemoveAt(0); }
 
             // Add newKey to list and send action invocation to relevant classes
             keysToPress.Add(newKey);
             keyUpdate?.Invoke();
+
+
+            CheckWord(keysToPress);
 
             yield return new WaitForSeconds(timeBtwNewKeys);
         }
@@ -85,5 +95,19 @@ public class GameController : MonoBehaviour
     {
         score += 1;
         scoreUIObject.text = $"Score: {score}";
+    }
+
+    private Boolean CheckWord(List<char> testList, string newKey)
+    {
+        string combindedString = (string.Join("", testList.ToArray()) + Char.ToString(newKey));
+
+        if (Array.IndexOf(noNoWords, combindedString) == -1){
+            print("false");
+            return false;
+        }
+        else {
+            print("true");
+            return true;
+        }
     }
 }
