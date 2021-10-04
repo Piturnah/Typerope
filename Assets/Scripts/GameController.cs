@@ -31,6 +31,10 @@ public class GameController : MonoBehaviour
     private void Update() {
         timeB4KO += CalculateHealth() * Time.deltaTime;
         timeB4KO = Mathf.Clamp(timeB4KO, 0, maxTimeB4KO);
+        if(timeB4KO <= 0)
+        {
+            GameFailed();
+        }
     }
 
     float CalculateHealth() {
@@ -81,6 +85,11 @@ public class GameController : MonoBehaviour
         keyUpdate += UpdateScore;
     }
 
+    private void GameFailed()
+    {
+        
+    }
+
     public void ResetScore()
     {
         score = 0;
@@ -98,11 +107,9 @@ public class GameController : MonoBehaviour
         string combindedString = (string.Join("", testList.ToArray()) + Char.ToString(newKey));
 
         if (Array.IndexOf(noNoWords, combindedString) == -1){
-            print("false");
             return false;
         }
         else {
-            print("true");
             return true;
         }
     }
