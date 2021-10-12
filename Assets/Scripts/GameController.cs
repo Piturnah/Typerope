@@ -33,8 +33,7 @@ public class GameController : MonoBehaviour
     private void Update() {
         timeB4KO += CalculateHealth() * Time.deltaTime;
         timeB4KO = Mathf.Clamp(timeB4KO, 0, maxTimeB4KO);
-        if(timeB4KO <= 0)
-        {
+        if(timeB4KO <= 0) {
             GameFailed();
         }
     }
@@ -87,33 +86,28 @@ public class GameController : MonoBehaviour
         keyUpdate += UpdateScore;
     }
 
-    private void GameFailed()
-    {
+    private void GameFailed() {
         gameOver?.Invoke();
         GameEnd.EndGame(score);
         scoreEnabled = false;
     }
 
-    public void ResetScore()
-    {
+    public void ResetScore() {
         score = 0;
         scoreUIObject.text = $"Score: {score}";
     }
 
-    public void UpdateScore()
-    {
-        if (scoreEnabled)
-        {
+    public void UpdateScore() {
+        if (scoreEnabled) {
             score += 1;
             scoreUIObject.text = $"Score: {score}";
         }     
     }
 
-    private bool CheckWord(List<char> testList, char newKey)
-    {
+    private bool CheckWord(List<char> testList, char newKey) {
         string combindedString = (string.Join("", testList.ToArray()) + Char.ToString(newKey));
 
-        if (Array.IndexOf(noNoWords, combindedString) == -1){
+        if (Array.IndexOf(noNoWords, combindedString) == -1) {
             return false;
         }
         else {
